@@ -8,14 +8,14 @@ services:
     volumes:
       - "./html/:/var/www/html/"
     ports:
-      - "8005:80"
+      - "8010:80"
   mysql-server:
     image: mysql:8.0.19
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: secret
     ports:
-      - "3310:3306"
+      - "33306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
@@ -28,6 +28,6 @@ services:
       PMA_PASSWORD: secret
       UPLOAD_LIMIT: 300M
     ports:
-      - "5556:80"
+      - "8006:80"
 volumes:
   mysql-data:
