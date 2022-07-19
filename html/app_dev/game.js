@@ -11,12 +11,11 @@ window.addEventListener('load', function () {
         }
     });
     game.scene.add("Preload", Preload);
-    game.scene.add("Level", Level);
+    game.scene.add("Login", Login);
     game.scene.add("Boot", Boot, true);
 });
 class Boot extends Phaser.Scene {
     preload() {
-        this.load.pack("pack", "assets/preload-asset-pack.json");
     }
     create() {
         this.scene.start("Preload");
@@ -74,7 +73,7 @@ class PreloadText extends UserComponent {
         gameObject["__PreloadText"] = this;
         /* START-USER-CTR-CODE */
         this.scene.load.on(Phaser.Loader.Events.PROGRESS, (p) => {
-            this.gameObject.text = (p * 100) + "%";
+            this.gameObject.text = Math.floor(p * 100) + "%";
         });
         /* END-USER-CTR-CODE */
     }
@@ -85,61 +84,21 @@ class PreloadText extends UserComponent {
 }
 /* END OF COMPILED CODE */
 // You can write more code here
-/// <reference path="./UserComponent.ts"/>
 // You can write more code here
 /* START OF COMPILED CODE */
-class PushOnClick extends UserComponent {
-    constructor(gameObject) {
-        super(gameObject);
-        this.gameObject = gameObject;
-        gameObject["__PushOnClick"] = this;
-        /* START-USER-CTR-CODE */
-        // Write your code here.
-        /* END-USER-CTR-CODE */
-    }
-    static getComponent(gameObject) {
-        return gameObject["__PushOnClick"];
-    }
-    gameObject;
-    /* START-USER-CODE */
-    awake() {
-        this.gameObject.setInteractive().on("pointerdown", () => {
-            this.scene.add.tween({
-                targets: this.gameObject,
-                scaleX: 0.8,
-                scaleY: 0.8,
-                duration: 80,
-                yoyo: true
-            });
-        });
-    }
-}
-/* END OF COMPILED CODE */
-// You can write more code here
-// You can write more code here
-/* START OF COMPILED CODE */
-class Level extends Phaser.Scene {
+class Login extends Phaser.Scene {
     constructor() {
-        super("Level");
+        super("Login");
         /* START-USER-CTR-CODE */
         // Write your code here.
         /* END-USER-CTR-CODE */
     }
     editorCreate() {
-        // dino
-        const dino = this.add.image(400, 245.50984430371858, "dino");
-        // text_1
-        const text_1 = this.add.text(400, 406, "", {});
-        text_1.setOrigin(0.5, 0);
-        text_1.text = "Phaser 3 + Phaser Editor 2D + TypeScript";
-        text_1.setStyle({ "fontFamily": "arial", "fontSize": "3em" });
-        // dino (components)
-        new PushOnClick(dino);
-        this.events.emit("scene-awake");
     }
     /* START-USER-CODE */
     // Write your code here.
     create() {
+        this.load.html('login', 'assets/loginform.html');
         this.editorCreate();
     }
 }
@@ -147,6 +106,19 @@ class Level extends Phaser.Scene {
 // You can write more code here
 // You can write more code here
 /* START OF COMPILED CODE */
+window.addEventListener('load', function () {
+    var game = new Phaser.Game({
+        width: 800,
+        height: 600,
+        type: Phaser.AUTO,
+        backgroundColor: "#fff",
+        scale: {
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH
+        }
+    });
+    game.scene.add("Preload", Preload);
+});
 class Preload extends Phaser.Scene {
     constructor() {
         super("Preload");
@@ -158,14 +130,10 @@ class Preload extends Phaser.Scene {
         this.load.pack("asset-pack", "assets/asset-pack.json");
     }
     editorCreate() {
-        // guapen
-        const guapen = this.add.image(400, 219, "guapen");
-        guapen.scaleX = 0.5915891440784282;
-        guapen.scaleY = 0.5915891440784282;
         // progress
-        const progress = this.add.text(381.5, 335, "", {});
+        const progress = this.add.text(381.5, 260, "", {});
         progress.text = "0%";
-        progress.setStyle({ "fontSize": "30px" });
+        progress.setStyle({ "fontSize": "20px" });
         // progress (components)
         new PreloadText(progress);
         this.events.emit("scene-awake");
@@ -175,7 +143,7 @@ class Preload extends Phaser.Scene {
     preload() {
         this.editorCreate();
         this.editorPreload();
-        this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Level"));
+        this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Login"));
     }
 }
 /* END OF COMPILED CODE */

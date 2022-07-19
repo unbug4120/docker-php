@@ -25,5 +25,9 @@
   },
   "dependencies": {
     "phaser": "^3.55.2"
-  }
+  },
+  "resolutions": {
+    "glob-parent": "^6.0.1"
+  },
+  "preinstall": "npx npm-force-resolutions"
 }

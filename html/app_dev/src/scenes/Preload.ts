@@ -3,6 +3,20 @@
 
 /* START OF COMPILED CODE */
 
+window.addEventListener('load', function () {
+    var game = new Phaser.Game({
+        width: 800,
+        height: 600,
+        type: Phaser.AUTO,
+        backgroundColor: "#fff",
+        scale: {
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH
+        }
+    });
+    game.scene.add("Preload", Preload);
+});
+
 class Preload extends Phaser.Scene {
 
 	constructor() {
@@ -20,15 +34,10 @@ class Preload extends Phaser.Scene {
 
 	editorCreate(): void {
 
-		// guapen
-		const guapen = this.add.image(400, 219, "guapen");
-		guapen.scaleX = 0.5915891440784282;
-		guapen.scaleY = 0.5915891440784282;
-
 		// progress
-		const progress = this.add.text(381.5, 335, "", {});
+		const progress = this.add.text(381.5, 260, "", {});
 		progress.text = "0%";
-		progress.setStyle({ "fontSize": "30px" });
+		progress.setStyle({ "fontSize": "20px" });
 
 		// progress (components)
 		new PreloadText(progress);
@@ -46,7 +55,7 @@ class Preload extends Phaser.Scene {
 
 		this.editorPreload();
 
-		this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Level"));
+		this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Login"));
 	}
 
 	/* END-USER-CODE */

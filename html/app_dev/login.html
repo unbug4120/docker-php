@@ -1,0 +1,53 @@
+<!doctype html>
+<html data-theme="cupcake">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.19.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body class="text-center">
+    <div class="bg-base-100 drawer drawer-mobile">
+        <div class="container mx-auto px-4 flex justify-center ">
+            <form class="form-signin">
+                <div class="form-control flex justify-center items-center mb-5">
+                    <input type="email" id="email" placeholder="Email" class="input input-bordered input-md" />
+                </div>
+                <div class="form-control flex justify-center items-center mb-5">
+                    <input type="password" id="password" placeholder="Password" class="input input-bordered input-md" />
+                </div>
+                <a onClick="signIn()" class="btn px-16 btn-primary">
+                    Sign In
+                </a>
+            </form>
+        </div>
+    </div>
+    <script>
+        function signIn() {
+            var data = {
+                email: document.forms[0].elements[0].value,
+                password: document.forms[0].elements[1].value
+            };
+            $.ajax({
+                type: 'POST',
+                url: 'server/public/api/auth/login',
+                data,
+                success: function (data) {
+                    console.log(data);
+                    // window.location.replace('/game.html');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    // window.alert(JSON.stringify(xhr));
+                    // window.location.replace('/login.html');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
