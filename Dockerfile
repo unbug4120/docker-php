@@ -1,4 +1,4 @@
-FROM php:8.0.2-apache
+FROM php:8.1-apache
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -19,17 +19,7 @@ RUN apt-get update && \
 apt-get install -y --no-install-recommends \
         openjdk-11-jre
 
-RUN apt install android-sdk android-sdk-platform-23
-
-RUN export ANDROID_HOME=/usr/lib/android-sdk
-
-RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql gd zip bcmath
-
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
-
-RUN apt-get install -y nodejs
-
-RUN npm i -g cordova
+RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql gd zip
 
 COPY vhost.conf /etc/apache2/sites-available/000-default.conf
 
